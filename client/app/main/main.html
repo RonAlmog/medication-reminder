@@ -8,10 +8,35 @@
 
 <div class="container">
   <div class="col-sm-6">
-  <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
     <div style="display:inline-block; min-height:290px;">
       <div datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></div>
     </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body text-center">
+          <h1>{{dt | date:"h:mm a"}}</h1>
+          <h2>{{dt | date:"MMMM d, yyyy"}}</h2>
+      </div>
+    </div>
+    <div ng-repeat="m in meds | filter:daysfilter | filter: {completed:false}">
+      <div class="panel panel-default">
+        <div class="panel-heading">Missed Medication!</div>
+        <div class="panel-body">
+          <div class="col-sm-1">
+            <span class="{{m.completed && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span>  
+          </div>
+          <div class="col-sm-11">
+            {{m.time | date:"h:mm a"}}<br>
+            <b>{{m.name}}</b><br>
+            {{m.dosage}}  <br>
+            <button ng-hide="m.completed" class="btn btn-success btn-sm" ng-click="complete(m._id)">Complete</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+
   </div>
   <div class="col-sm-6">
     <div ng-repeat="m in meds | filter:daysfilter">
@@ -30,8 +55,6 @@
           
         </div>
       </div>
-
-            
     </div>
   </div>
 </div>

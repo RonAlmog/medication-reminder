@@ -10,4 +10,7 @@ router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
 
+router.post('/complete/:id', controller.complete);
+
+
 module.exports = router;

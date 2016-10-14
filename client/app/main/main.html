@@ -5,15 +5,38 @@
       <h1>{{currentTime}}</h1>
   </div>
 </header>
+
 <div class="container">
-  <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 text-center">
-        <div ng-repeat="m in meds">
-            {{m.time}} {{m.name}} {{m.dosage}}
+  <div class="col-sm-6">
+  <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+    <div style="display:inline-block; min-height:290px;">
+      <div datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div ng-repeat="m in meds | filter:daysfilter">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{m.name}}</div>
+        <div class="panel-body">
+          <div class="col-sm-1">
+            <span class="{{m.completed && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span>  
+          </div>
+          <div class="col-sm-11">
+            {{m.time | date:"h:mm a"}}<br>
+            <b>{{m.name}}</b><br>
+            {{m.dosage}}  <br>
+            <button ng-hide="m.completed" class="btn btn-success btn-sm" ng-click="complete(m._id)">Complete</button>
+          </div>
+          
         </div>
+      </div>
+
+            
     </div>
   </div>
 </div>
+
+
 <footer class="footer">
   <div class="container">
       <p>© 2016 Mavencare™, made with <span class="glyphicon glyphicon-heart heart-red"></span> for better healthcare.</p>

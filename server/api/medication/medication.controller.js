@@ -75,3 +75,21 @@ exports.destroy = function (req, res) {
         res.send(500);
     });
 };
+
+
+exports.complete = function (req, res){
+    q(Medication.findById(req.params.id).exec()).then(function (med) {
+        if (!med) {
+            res.send(404);
+        } else {
+            med.completed=true;
+            med.save(function(err, m){
+               res.send(204); 
+           });
+            
+        }
+    }).catch(function (err) {
+        console.error('Error occured completing medication', err);
+        res.send(500);
+    });
+}
